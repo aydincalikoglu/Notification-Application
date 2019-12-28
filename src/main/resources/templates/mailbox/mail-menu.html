@@ -1,0 +1,33 @@
+<!DOCTYPE "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body th:fragment="menu">
+<div class="card-body p-0">
+    <ul class="nav nav-pills flex-column">
+        <li class="nav-item active">
+            <a href="/mailbox?type=inbox" class="nav-link">
+                <i class="fas fa-inbox"></i> Inbox
+                <span class="badge bg-primary float-right">12</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/mailbox?type=sent" class="nav-link">
+                <i class="far fa-envelope"></i> Sent
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/mailbox?type=drafts" class="nav-link">
+                <i class="far fa-file-alt"></i> Drafts
+                <span class="badge bg-warning float-right">65</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="/mailbox?type=trash" class="nav-link">
+                <i class="far fa-trash-alt"></i> Trash
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

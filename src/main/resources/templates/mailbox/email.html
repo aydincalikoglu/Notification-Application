@@ -1,0 +1,144 @@
+<!DOCTYPE "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head layout:fragment="header">
+    <!-- summernote -->
+    <link rel="stylesheet" th:href="@{/plugins/summernote/summernote-bs4.css}" >
+    <style>
+
+        .LoadImage {
+            height: 100%;
+            box-sizing: border-box;
+            max-height: 50px;
+            max-width: 960px;
+        }
+
+        .upload-progress-bar {
+            height: 20px;
+            border: 1px solid #ddd;
+            width: 100%;
+            clear: both;
+        }
+
+        .progress-bar {
+            background: #bde1ff;
+            width: 0;
+            height: 20px;
+        }
+    </style>
+    <!-- Summernote -->
+    <script th:src="@{/plugins/summernote/summernote-bs4.min.js}"></script>
+    <!-- jquery-validation -->
+    <script th:src="@{/plugins/jquery-validation/jquery.validate.min.js}"></script>
+    <script th:src="@{/plugins/jquery-validation/additional-methods.min.js}"></script>
+    <!-- Page Script -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    //"Form successful submitted!"
+                }
+            });
+            $('#mailForm').validate({
+                rules: {
+                    mailAddress: {
+                        required: true,
+                        email: true,
+                    }
+                },
+                messages: {
+                    mailAddress: {
+                        required: "Please enter a email address",
+                        email: "Please enter a vaild email address"
+                    }
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
+</head>
+<body layout:fragment="content">
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Mail</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Mail</a></li>
+                        <li class="breadcrumb-item active">Yeni mail gönder</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <form class="form-horizontal w-100" id="mailForm" name="mail" data-submit="ajaxForm" role="form" method="POST" action="/email"
+                      enctype="multipart/form-data">
+
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="card-title">Mail</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1"></label>
+                            <input type="email" name="mailAddress" class="form-control" id="exampleInputEmail1" placeholder="To:">
+                        </div>
+                        <div class="form-group">
+                            <input class="form-control" name="subject" placeholder="Subject:">
+                        </div>
+                        <div class="form-group">
+                        <textarea class="compose-textarea form-control"  name="body" style="height: 300px">
+                        </textarea>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="btn btn-default btn-file">
+                                <i class="fas fa-paperclip"></i> Attachment
+                                <input type="file" name="attachment" data-read='source' >
+
+                            </div>
+                            <p class="help-block">Max. 2MB</p>
+                        </div>
+                        <div class="row panel-body">
+                            <img class="LoadImage" data-content="source"/>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <div class="float-right">
+                            <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft
+                            </button>
+                            <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Send</button>
+                        </div>
+                        <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Discard</button>
+                    </div>
+                    <!-- /.card-footer -->
+                </div>
+                <div class="upload-progress"><div class="progress-bar"></div></div>
+                </form>
+                <!-- /.card -->
+            </div>
+            <!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </section>
+</body>
+</html>
