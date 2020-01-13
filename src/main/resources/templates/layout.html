@@ -23,7 +23,7 @@
 
 
     <!-- jQuery -->
-    <script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+    <script th:src="@{/plugins/jquery/jquery.js}"></script>
     <!-- Bootstrap 4 -->
     <script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
     <!-- SweetAlert2 -->
@@ -34,6 +34,9 @@
     <script th:src="@{/dist/js/adminlte.min.js}"></script>
     <!-- AdminLTE for demo purposes -->
     <script th:src="@{/dist/js/common.js}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js" integrity="sha256-G7A4JrJjJlFqP0yamznwPjAApIKPkadeHfyIwiaa9e0=" crossorigin="anonymous"></script>
+
 </head>
 <body class="sidebar-collapse">
 <div class="wrapper content-wrapper">
@@ -45,10 +48,13 @@
                 <a class="nav-link" data-widget="it-was-pushmenu" href="/"><i class="fas fa-bars"></i></a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="/" class="nav-link">Home</a>
+                <a href="/" class="nav-link">Anasayfa</a>
             </li>
             <li class="nav-item d-none d-sm-inline-block">
-                <a href="/translate" class="nav-link">Translate</a>
+                <a href="/drafts" class="nav-link">Tasarımlar</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="/translate" class="nav-link">Çeviri</a>
             </li>
             <li class="nav-item dropdown">
                 <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link dropdown-toggle">
@@ -57,38 +63,15 @@
                 </a>
                 <ul aria-labelledby="dropdownSubMenu1" class="dropdown-menu border-0 shadow">
                     <li><a href="/email" class="dropdown-item">Mail Oluştur</a></li>
+                    <li class="dropdown-divider"></li>
                     <li><a href="/mailbox?type=inbox" class="dropdown-item">Gelen Kutusu</a></li>
                     <li><a href="/mailbox?type=sent" class="dropdown-item">Gönderilmiş Postalar</a></li>
-                    <li class="dropdown-divider"></li>
-                    <!-- Level two dropdown-->
-                    <li class="dropdown-submenu dropdown-hover">
-                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">Hover for action</a>
-                        <ul aria-labelledby="dropdownSubMenu2" class="dropdown-menu border-0 shadow">
-                            <li>
-                                <a tabindex="-1" href="#" class="dropdown-item">level 2</a>
-                            </li>
-
-                            <!-- Level three dropdown-->
-                            <li class="dropdown-submenu">
-                                <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-item dropdown-toggle">level 2</a>
-                                <ul aria-labelledby="dropdownSubMenu3" class="dropdown-menu border-0 shadow">
-                                    <li><a href="#" class="dropdown-item">3rd level</a></li>
-                                    <li><a href="#" class="dropdown-item">3rd level</a></li>
-                                </ul>
-                            </li>
-                            <!-- End Level three -->
-
-                            <li><a href="#" class="dropdown-item">level 2</a></li>
-                            <li><a href="#" class="dropdown-item">level 2</a></li>
-                        </ul>
-                    </li>
-                    <!-- End Level two -->
                 </ul>
             </li>
         </ul>
 
         <!-- SEARCH FORM -->
-        <form class="form-inline ml-3" style="margin-bottom:0px; width:100%; justify-content:flex-end">
+        <form class="form-inline ml-3 d-none" style="margin-bottom:0px; width:100%; justify-content:flex-end">
             <div class="input-group input-group-sm">
                 <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
                 <div class="input-group-append">
@@ -103,7 +86,7 @@
 
 
     <!-- Content Wrapper. Contains page content -->
-    <div  class="content-wrapper" style="max-width: 1024px; margin: auto">
+    <div  class="content-wrapper" style="max-width: 1400px; margin: auto">
         <div layout:fragment="content"></div>
     </div>
     <!-- /.content-wrapper -->

@@ -7,6 +7,7 @@ import com.gtu.translatednotification.model.dao.Translation;
 import com.gtu.translatednotification.repository.TranslationsRepo;
 import com.gtu.translatednotification.service.ITranslationService;
 import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -34,7 +35,7 @@ public class TranslationService implements ITranslationService {
 
     public Optional<Translation> translate(Translation translation) {
         try {
-            translation.setTarget(GoogleTranslate
+            translation = translation.withTarget(GoogleTranslate
                 .translate(translation.getSourceLanguage(), translation.getTargetLanguage(), translation.getSource()));
             translationsRepo.save(translation);
         } catch (IOException e) {
@@ -46,7 +47,7 @@ public class TranslationService implements ITranslationService {
 
     public List<Language> getSupportedLanguages() {
         ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("empty.txt").getFile());
+        File file = new File(classLoader.getResource("languageSupports").getFile());
         try {
             return FileUtils.readLines(file, "UTF-8").stream()
                 .map(line -> line.split("\t"))

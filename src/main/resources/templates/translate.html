@@ -5,70 +5,112 @@
 <head layout:fragment="header">
 </head>
 <body layout:fragment="content">
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>Translate</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Compose</li>
-                    </ol>
-                </div>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Çeviri</h1>
             </div>
-        </div><!-- /.container-fluid -->
-    </section>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <li class="breadcrumb-item active">Çeviri</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <form class="form-horizontal w-100" name="mail" data-submit="ajaxForm" role="form" method="POST" action="/email"
-                      enctype="multipart/form-data" style="width:100%">
+<!-- Main content -->
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card card-primary card-outline" style="width: 100%">
+                <div class="card-header">
+                </div>
 
-                <div class="card card-primary card-outline">
-                    <div class="card-header">
-                        <h3 class="card-title">Translate</h3>
-                    </div>
+                <form class="form-horizontal" data-submit="translate" name="translation" role="form" method="POST"
+                      action="/translate">
                     <!-- /.card-header -->
                     <div class="card-body">
                         <div class="form-group">
-                            <input class="form-control" name="" placeholder="Başlık">
+                            <input class="form-control" name="header" placeholder="Başlık">
                         </div>
                         <div class="form-group">
-                        <textarea class="form-control"  name="body" placeholder="İçerik" style="height: 300px">
-
-                        </textarea>
+                            <textarea class="form-control" name="body" placeholder="İçerik"
+                                      style="height: 250px"></textarea>
                         </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <!-- select -->
+                                <div class="form-group">
+                                    <label>Source Language</label>
+                                    <select name="sourceLanguage" class="custom-select">
+                                        <th:block th:each="language : ${translationLanguages}">
+                                            <option th:selected="${language.code == 'tr'} ? 'true' : 'false'"
+                                                    th:text="${language.country}" th:value="${language.code}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Target Language</label>
+                                    <select name="targetLanguage" class="custom-select">
+                                        <th:block th:each="language : ${translationLanguages}">
+                                            <option th:selected="${language.code == 'en'} ? 'true' : 'false'"
+                                                    th:text="${language.country}" th:value="${language.code}"></option>
+                                        </th:block>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
 
                             <button class="translate btn btn-default btn-file">
                                 <i class="fas fa-language"></i> Çevir
                             </button>
                         </div>
-                        <div class="row panel-body">
-                            <img class="LoadImage" data-content="source"/>
+                        <div class="upload-progress">
+                            <div class="progress-bar"></div>
                         </div>
                     </div>
-                    <!-- /.card-body -->
-                    <div class="card-footer">
-                        <div class="float-right">
-                            <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft
-                            </button>
-                            <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Send</button>
+                </form>
+
+                <form class="form-horizontal" name="mail" role="form" method="POST" action="/email"
+                      enctype="multipart/form-data">
+                    <div class="card card-primary card-outline">
+                        <div class="card-header">
                         </div>
-                        <button type="reset" class="btn btn-default"><i class="fas fa-times"></i> Discard</button>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <div class="form-group">
+                                <input class="form-control" id="header" name="header" placeholder="Başlık">
+                            </div>
+                            <div class="form-group">
+                            <textarea class="form-control" id="body" name="body" placeholder="İçerik"
+                                      style="height: 250px"></textarea>
+                            </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <div class="card-footer">
+                            <div class="float-right">
+                                <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft olarak Kaydet
+                                </button>
+                                <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Mail olarak Aktar
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-footer -->
                     </div>
-                    <!-- /.card-footer -->
-                </div>
-                <div class="upload-progress"><div class="progress-bar"></div></div>
                 </form>
                 <!-- /.card -->
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
-    </section>
+    </div>
+</section>
 </body>
 </html>

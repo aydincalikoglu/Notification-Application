@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -13,18 +12,16 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Mail {
+public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @NotBlank
-    String mailAddress;
-    @NotBlank
-    String subject;
     @Column(columnDefinition = "TEXT")
-    String body;
-    String type = "sent";
-    LocalDate iDate = LocalDateTime.now().toLocalDate();
-    LocalDate uDate = LocalDateTime.now().toLocalDate();
+    String title;
+    String type = "waiting";
+    String backgroundColor = "white";
+    LocalDate startDate = LocalDateTime.now().toLocalDate();
+    LocalDate endDate = LocalDateTime.now().toLocalDate();
+    Integer status = 0;
 }

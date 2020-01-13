@@ -7,6 +7,7 @@ import java.util.Collection;
 import java.util.List;
 
 public interface IMailService {
+    Mail getById(Long id);
     List<Mail> get();
     List<Mail> get(String type);
     Boolean send(Mail mail);

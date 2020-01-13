@@ -103,10 +103,10 @@
                             <input type="email" name="mailAddress" class="form-control" id="exampleInputEmail1" placeholder="To:">
                         </div>
                         <div class="form-group">
-                            <input class="form-control" name="subject" placeholder="Subject:">
+                            <input class="form-control" th:value="${header}" name="subject" placeholder="Subject:">
                         </div>
                         <div class="form-group">
-                        <textarea class="compose-textarea form-control"  name="body" style="height: 300px">
+                        <textarea class="compose-textarea form-control" th:text="${body}" name="body" rows="15">
                         </textarea>
                         </div>
                         <div class="form-group">

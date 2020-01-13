@@ -1,11 +1,14 @@
 package com.gtu.translatednotification.controller;
 
 import com.gtu.translatednotification.model.dao.Translation;
+import org.springframework.http.MediaType;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+
+import static org.springframework.http.MediaType.*;
 
 @RestController
 @RequestMapping("api")

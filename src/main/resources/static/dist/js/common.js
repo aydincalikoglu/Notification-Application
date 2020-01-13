@@ -2,21 +2,27 @@
 $(function () {
     //Add text editor
     $('.compose-textarea').each(function () {
-        $(this).summernote();
+        var area = this
+        $(this).summernote({
+            height: ($(area).height()),
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true
+        });
     });
 
 // Progress ozelligi icin form tagleri icerisinde <div class="upload-progress"><div class="progress-bar"></div></div> eklenmesi yeterlidir.
 // Başarılı durumlarlar için response mesajı "true/false" olmalıdır.
-    function extendedAjax(url, requestMethod, formData, doneFunction) {
+    function extendedAjax(form, url, requestMethod, formData, doneFunction) {
 
-        var uploadProgress = $(this).find(".upload-progress");
+        var uploadProgress = $(form).find(".upload-progress");
         var progressBar = uploadProgress.find(".progress-bar");
         var isProgressBarActive = uploadProgress.length && progressBar.length;
         if (isProgressBarActive){
             uploadProgress.addClass("upload-progress-bar");
             progressBar.removeAttr("style");
         }
-        var submitBtn = $(this).find('[type="submit"]');
+        var submitBtn = $(form).find('[type="submit"]');
         if (submitBtn.length){
             submitBtn.attr("disabled", "disabled");
         }
@@ -73,7 +79,7 @@ $(function () {
         var url = $(this).attr("action"); //get form action url
         var requestMethod = $(this).attr("method"); //get form GET/POST method
         var formData = new FormData(this); //Encode form elements for submission
-        extendedAjax(url, requestMethod, formData, function (response) {
+        extendedAjax(this, url, requestMethod, formData, function (response) {
             submitBtn.removeAttr("disabled");
         });
     });
@@ -93,11 +99,18 @@ $(function () {
     });
 
 
-// Seçilen resmin gösterilmesini sağlar
+// Çeviri yapılmasını sağlar
     $(".translate").on('click', function (event) {
-        event.preventDefault()
+        event.preventDefault();
+        var form  = $(this).closest('form');
+        var requestMethod = form.attr("method"); //get form GET/POST method
+        var url = form.attr("action"); //get form action url
+        var formData = new FormData(form[0]);
+        extendedAjax(this, url, requestMethod, formData, function (response) {
+            $("#header").val(response[0].target);
+            $("#body").val(response[1].target);
 
-        toastr.success("hi")
+        });
     });
 
 

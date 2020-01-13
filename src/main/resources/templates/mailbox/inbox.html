@@ -3,14 +3,27 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head layout:fragment="header">
+<script>
+    $('#search-box').on('keyup',function(e){
 
+        const searchText = (e.target.value).toLowerCase();
+
+        $('#inbox-table > tbody > tr').each(function(){
+
+            if($(this).text().trim().toLowerCase().indexOf(searchText) !== -1)
+                $(this).show();
+            else
+                $(this).hide();
+        });
+    });
+</script>
 </head>
 <body layout:fragment="content">
 <!-- Main content -->
 <section class="content">
     <div class="row">
         <div class="col-md-3">
-            <a href="../compose.html" class="btn btn-primary btn-block mb-3">Compose</a>
+            <a href="/email" class="btn btn-primary btn-block mb-3">Mail Gönder</a>
 
             <div class="card">
                 <div class="card-header">
@@ -30,11 +43,11 @@
         <div class="col-md-9">
             <div class="card card-primary card-outline">
                 <div class="card-header">
-                    <h3 class="card-title">Inbox</h3>
+                    <h3 class="card-title" th:text="${param.type}">Inbox</h3>
 
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
-                            <input type="text" class="form-control" placeholder="Search Mail">
+                            <input id="search-box" type="text" class="form-control" placeholder="Search Mail" >
                             <div class="input-group-append">
                                 <div class="btn btn-primary">
                                     <i class="fas fa-search"></i>
@@ -68,23 +81,24 @@
                         <!-- /.float-right -->
                     </div>
                     <div class="table-responsive mailbox-messages">
-                        <table class="table table-hover table-striped">
+                        <table id="inbox-table" class="table table-hover table-striped">
                             <tbody>
 
                             <th:block th:each="mail : ${mails}">
                                 <tr>
                                     <td>
                                         <div class="icheck-primary">
-                                            <input type="checkbox" value="" id="check1">
-                                            <label for="check1"></label>
+                                            <input type="checkbox" th:value="${mail.getId()}">
+                                            <label th:for="${mail.getId()}"></label>
                                         </div>
                                     </td>
                                     <td class="mailbox-star"><a href="#"><i class="fas fa-star text-warning"></i></a></td>
-                                    <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                    <td class="mailbox-subject"><b>AdminLTE 3.0 Issue</b> - Trying to find a solution to this problem...
+                                    <td class="mailbox-name"><a href="read-mail.html" th:text="${mail.getMailAddress()}" ></a></td>
+                                    <td class="mailbox-subject"><b th:text="${mail.getSubject()}"></b> -
+                                        <a th:href='${"/mailbox/"+mail.getId()}' th:text='${mail.getBody().length() < 30 ? mail.getBody():mail.getBody().substring(0,30)}'></a>
                                     </td>
                                     <td class="mailbox-attachment"></td>
-                                    <td class="mailbox-date">5 mins ago</td>
+                                    <td class="mailbox-date" th:text="${mail.getIDate()}"></td>
                                 </tr>
                             </th:block>
                             </tbody>

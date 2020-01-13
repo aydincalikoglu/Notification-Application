@@ -1,6 +1,5 @@
 package com.gtu.translatednotification.service.Impl;
 
-import com.gtu.translatednotification.model.MailSearchCriteria;
 import com.gtu.translatednotification.model.dao.Mail;
 import com.gtu.translatednotification.repository.MailRepo;
 import com.gtu.translatednotification.service.IMailService;
@@ -26,6 +25,10 @@ public class MailService implements IMailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+
+    public Mail getById(Long id) {
+        return mailRepo.getOne(id);
+    }
 
     @Override
     public List<Mail> get() {
