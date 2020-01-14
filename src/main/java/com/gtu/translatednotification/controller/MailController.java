@@ -21,4 +21,11 @@ public class MailController extends BaseController {
     public Boolean sendEmail(@RequestBody Mail mail) {
         return mailService.send(mail);
     }
+
+    @RequestMapping(value = "/emails/{id}", method = RequestMethod.DELETE)
+    @ResponseBody
+    public Long removeEmail(@PathVariable Long id) {
+        mailService.deleteById(id);
+        return id;
+    }
 }

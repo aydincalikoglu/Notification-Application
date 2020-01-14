@@ -21,7 +21,7 @@ public class EventController extends BaseController {
 
     @RequestMapping(value = "/events/{id}", method = RequestMethod.DELETE)
     @ResponseBody
-    public Long saveEvent(@PathVariable Long id) {
+    public Long removeEvent(@PathVariable Long id) {
         eventService.deleteById(id);
         return id;
     }

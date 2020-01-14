@@ -3,6 +3,7 @@ package com.gtu.translatednotification.controller;
 import com.gtu.translatednotification.service.IEventService;
 import com.gtu.translatednotification.service.IMailService;
 import com.gtu.translatednotification.service.ITranslationService;
+import com.gtu.translatednotification.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.thymeleaf.TemplateEngine;
 
@@ -21,5 +22,8 @@ abstract class BaseController implements Serializable {
 
     @Autowired
     IEventService eventService;
+
+    @Autowired
+    IUserService userService;
 
 }

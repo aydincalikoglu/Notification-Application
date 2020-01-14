@@ -18,7 +18,6 @@ public class Mail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @NotBlank
     String mailAddress;
     @NotBlank
     String subject;
@@ -27,4 +26,5 @@ public class Mail {
     String type = "sent";
     LocalDate iDate = LocalDateTime.now().toLocalDate();
     LocalDate uDate = LocalDateTime.now().toLocalDate();
+    String category;
 }

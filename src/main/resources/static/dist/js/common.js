@@ -10,6 +10,17 @@ $(function () {
             focus: true
         });
     });
+    //Add draft
+    $('.draft-textarea').each(function () {
+        var area = this
+        $(this).summernote({
+            toolbar:[],
+            height: ($(area).height()),
+            minHeight: null,             // set minimum height of editor
+            maxHeight: null,             // set maximum height of editor
+            focus: true
+        });
+    });
 
 // Progress ozelligi icin form tagleri icerisinde <div class="upload-progress"><div class="progress-bar"></div></div> eklenmesi yeterlidir.
 // Başarılı durumlarlar için response mesajı "true/false" olmalıdır.
@@ -79,6 +90,7 @@ $(function () {
         var url = $(this).attr("action"); //get form action url
         var requestMethod = $(this).attr("method"); //get form GET/POST method
         var formData = new FormData(this); //Encode form elements for submission
+        console.log($(this).serialize());
         extendedAjax(this, url, requestMethod, formData, function (response) {
             submitBtn.removeAttr("disabled");
         });
@@ -112,6 +124,30 @@ $(function () {
 
         });
     });
+
+
+
+    $("#saveDraft").on('click', function (event) {
+        event.preventDefault();
+        $('#mailType').val("draft");
+        var form  = $(this).closest('form');
+        var requestMethod = form.attr("method"); //get form GET/POST method
+        var url = form.attr("action"); //get form action url
+        var formData = new FormData(form[0]);
+        extendedAjax(this, url, requestMethod, formData, function (response) {
+            console.log(response)
+        });
+    });
+
+    function removeDraft(id) {
+        event.preventDefault();
+        var requestMethod = "DELETE";
+        extendedAjax(this, "/draft/"+id, requestMethod, {}, function (response) {
+            console.log(response)
+        });
+    }
+
+
 
 
 

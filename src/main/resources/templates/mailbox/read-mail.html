@@ -11,20 +11,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-                <a href="/mailbox" class="btn btn-primary btn-block mb-3">Back to Inbox</a>
-
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Folders</h3>
-
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div th:replace="/mailbox/mail-menu :: menu"></div>
-                    <!-- /.card-body -->
-                </div>
+                <div th:replace="/mailbox/mail-menu :: menu"></div>
             </div>
             <!-- /.col -->
             <div class="col-md-9">
@@ -62,7 +49,7 @@
                                 <i class="fas fa-print"></i></button>
                         </div>
                         <!-- /.mailbox-controls -->
-                        <div th:text="${mail.getBody()}" class="mailbox-read-message" style="min-height: 300px;">
+                        <div th:utext="${mail.getBody()}" class="mailbox-read-message" style="min-height: 300px;">
                         </div>
                         <!-- /.mailbox-read-message -->
                     </div>

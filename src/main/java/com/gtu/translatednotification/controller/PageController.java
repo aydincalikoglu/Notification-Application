@@ -1,6 +1,5 @@
 package com.gtu.translatednotification.controller;
 
-import com.gtu.translatednotification.model.dao.Event;
 import com.gtu.translatednotification.model.dao.Mail;
 import com.gtu.translatednotification.model.dao.Translation;
 import org.springframework.stereotype.Controller;
@@ -8,7 +7,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -31,6 +30,13 @@ public class PageController extends BaseController {
         return "translate";
     }
 
+    @RequestMapping(value = "/users", method = RequestMethod.GET)
+    public String users(ModelMap map,
+                        @RequestParam(value = "countryCode", required = false) String code) {
+        map.addAttribute("users", userService.getActive(Optional.ofNullable(code)));
+        return "users";
+    }
+
     @RequestMapping(value = "/translate", method = RequestMethod.POST)
     @ResponseBody
     public Stream<Translation> saveTranslate(@ModelAttribute("translate") Translation translation,
@@ -45,18 +51,43 @@ public class PageController extends BaseController {
 
     @RequestMapping(value = "/email", method = RequestMethod.GET)
     public String email(ModelMap map,
-                        @RequestParam(value = "header", required = false) String header,
-                        @RequestParam(value = "body", required = false) String body) {
-        map.addAttribute("header", header);
+                        @RequestParam(value = "subject", required = false) String subject,
+                        @RequestParam(value = "body", required = false) String body,
+                        @RequestParam(value = "id", required = false) Long maybeId) {
+        map.addAttribute("subject", subject);
         map.addAttribute("body", body);
+
+        Optional.ofNullable(maybeId).ifPresent(id -> {
+            Mail mail = mailService.getById(id);
+            map.addAttribute("subject", mail.getSubject());
+            map.addAttribute("body", mail.getBody());
+            map.addAttribute("mail", mail);
+        });
+        map.addAttribute("translationLanguages", translationService.getSupportedLanguages());
+
         return "mailbox/email";
     }
 
     @RequestMapping(value = "/email", method = RequestMethod.POST)
     @ResponseBody
     public Boolean sendEmail(@ModelAttribute("mail") Mail mail,
+                             @RequestParam(value = "to") String toType,
+                             @RequestParam(value = "countryCode", required = false) String countryCode,
                              @RequestParam(value = "attachment", required = false) MultipartFile attachment) {
-        return mailService.send(mail, Stream.of(attachment).collect(Collectors.toList()));
+        if (mail.getCategory() != null && mail.getCategory().isEmpty())
+            mail.setCategory(null);
+        if ("sent".equals(mail.getType()))
+            switch(toType){
+                case "one":
+                    return mailService.send(mail, Stream.of(attachment).collect(Collectors.toList()));
+                default:
+                    userService.getActive(Optional.ofNullable(countryCode)).forEach(user -> {
+                        mail.setMailAddress(user.getMail());
+                        mailService.send(mail, Stream.of(attachment).collect(Collectors.toList()));
+                    });
+                    return true;
+            }
+        return mailService.save(mail).getId() != null;
     }
 
     @RequestMapping(value = "/mailbox", method = RequestMethod.GET)
@@ -74,11 +105,19 @@ public class PageController extends BaseController {
         return "mailbox/read-mail";
     }
 
-
     @RequestMapping(value = "/drafts", method = RequestMethod.GET)
     public String readMail(ModelMap map) {
-        map.addAttribute("mails", mailService.get("drafts"));
+        List<Mail> drafts = mailService.get("draft");
+        map.addAttribute("drafts", drafts);
+        map.addAttribute("draftCategories", drafts.stream().filter(t -> t.getCategory() != null).collect(Collectors.groupingBy(Mail::getCategory)).keySet().toArray());
         return "drafts";
+    }
+
+    @RequestMapping(value = "/drafts/{id}", method = RequestMethod.GET)
+    public String deleteMail(ModelMap map,
+                             @PathVariable("id") Long id) {
+        mailService.deleteById(id);
+        return readMail(map);
     }
 
 }

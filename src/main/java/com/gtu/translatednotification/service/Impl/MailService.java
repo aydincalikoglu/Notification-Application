@@ -41,6 +41,11 @@ public class MailService implements IMailService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        mailRepo.deleteById(id);
+    }
+
+    @Override
     public Boolean send(Mail mail) {
         return send(mail, null);
     }
@@ -50,6 +55,12 @@ public class MailService implements IMailService {
         Boolean isSent = send(mail.getMailAddress(), mail.getSubject(), mail.getBody(), files);
         mailRepo.save(mail);
         return isSent;
+    }
+
+    @Override
+    public Mail save(Mail mail) {
+        mailRepo.save(mail);
+        return mail;
     }
 
     @Override

@@ -10,6 +10,8 @@ public interface IMailService {
     Mail getById(Long id);
     List<Mail> get();
     List<Mail> get(String type);
+    Mail save(Mail mail);
+    void deleteById(Long id);
     Boolean send(Mail mail);
     Boolean send(Mail mail, Collection<MultipartFile> files);
     Boolean send(String to, String subject, String body);

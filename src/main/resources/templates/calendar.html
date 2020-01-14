@@ -7,7 +7,7 @@
     <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Anasayfa</title>
+    <title>Özel Günler Takvimi</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -257,7 +257,8 @@
                     start          : new Date($(this).attr("data-start-date")),
                     end            : new Date($(this).attr("data-end-date")),
                     backgroundColor: $(this).attr("data-color"),
-                    borderColor    : $(this).attr("data-color")
+                    borderColor    : $(this).attr("data-color"),
+                    allDay: true
                 };
                 events.push(event)
             });
@@ -274,6 +275,7 @@
             },
             //initial events
             events    : getCompletedEvents(),
+            durationEditable: true,
             editable  : true,
             droppable : true, // this allows things to be dropped onto the calendar !!!
             drop      : function(info) {
@@ -305,7 +307,7 @@
                 }
             },
             eventResize: function(info) {
-                var newEvent = {
+                var changedEvent = {
                     "id": info.event.id,
                     "title": info.event.title,
                     "backgroundColor": info.event.backgroundColor,
@@ -315,7 +317,22 @@
                     "status":1
                 };
                 var url = "/api/events";
-                request(url, newEvent,"POST");
+                request(url, changedEvent,"POST");
+            },
+            eventDrop: function(info) {
+                console.log(moment(info.event.end).format("YYYY-MM-DD"));
+                var changedEvent = {
+                    "id": info.event.id,
+                    "title": info.event.title,
+                    "backgroundColor": info.event.backgroundColor,
+                    "type": "completed",
+                    "startDate": moment(info.event.start).format("YYYY-MM-DD"),
+                    "endDate": info.event.end !=null ? moment(info.event.end).format("YYYY-MM-DD") : moment(info.event.start).format("YYYY-MM-DD"),
+                    "status":1
+                };
+                var url = "/api/events";
+                request(url, changedEvent,"POST");
+
             },
             eventDragStop: function(info) {
                 var jsEvent = info.jsEvent;
@@ -329,21 +346,19 @@
 
                 if (jsEvent.pageX >= x1 && jsEvent.pageX<= x2 &&
                     jsEvent.pageY >= y1 && jsEvent.pageY <= y2) {
-                    console.log(info.event.title);
-                    console.log(info.event.id);
                     var deleteUrl = "/api/events/"+info.event.id;
                     request(deleteUrl, {},"DELETE");
                     info.event.remove();
                 }
             },
             eventClick: function(info) {
-                alert('Event: ' + info.event.title);
-                alert('Event: ' + info.event.id);
-                alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-                alert('View: ' + info.view.type);
-
+                console.log('Event: ' + info.event.title);
+                console.log('Event: ' + info.event.id);
+                console.log('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+                console.log('View: ' + info.view.type);
                 // change the border color just for fun
                 info.el.style.borderColor = 'red';
+                window.location="/drafts";
             }
         });
 

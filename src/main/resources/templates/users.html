@@ -1,0 +1,91 @@
+<!DOCTYPE "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-4.dtd">
+<html layout:decorate="~{layout.html}"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org">
+>
+<head layout:fragment="header">
+
+</head>
+<body layout:fragment="content">
+
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>Kullanıcılar</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Users</li>
+                    </ol>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Aktif Kullanıcılar</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i></button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
+                        <i class="fas fa-times"></i></button>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <table class="table table-striped projects">
+                    <thead>
+                    <tr>
+                        <th style="width: 1%">#</th>
+                        <th style="width: 10%">Üye</th>
+                        <th style="width: 30%">İsim Soyisim</th>
+                        <th style="width: 15%">Eposta</th>
+                        <th style="width: 10%">Ülke</th>
+                        <th style="width: 9%" class="text-center">Durum</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <th:block th:each="user : ${users}">
+                        <tr>
+                            <td>#</td>
+                            <td>
+                                <ul class="list-inline">
+                                    <li class="list-inline-item">
+                                        <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
+                                    </li>
+                                </ul>
+                            </td>
+                            <td>
+                                <a th:text="${user.getName() + ' '+ user.getSurname()}">Name Surname</a>
+                            </td>
+                            <td>
+                                <a th:text="${user.getMail()}">Email</a>
+                            </td>
+                            <td>
+                                <a th:text="${user.getCountry()}">Country</a>
+                            </td>
+                            <td class="project-state">
+                                <span class="badge badge-success">Success</span>
+                            </td>
+                        </tr>
+                    </th:block>
+
+                    </tbody>
+                </table>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+
+    </section>
+</body>
+</html>

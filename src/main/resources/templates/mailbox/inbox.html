@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       xmlns:th="http://www.thymeleaf.org">
 <head layout:fragment="header">
+    <title>Posta Kutusu</title>
 <script>
     $('#search-box').on('keyup',function(e){
 
@@ -23,20 +24,8 @@
 <section class="content">
     <div class="row">
         <div class="col-md-3">
-            <a href="/email" class="btn btn-primary btn-block mb-3">Mail Gönder</a>
 
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Folders</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
-                        </button>
-                    </div>
-                </div>
-                <div th:replace="/mailbox/mail-menu :: menu"></div>
-                <!-- /.card-body -->
-            </div>
+            <div th:replace="/mailbox/mail-menu :: menu"></div>
             <!-- /.card -->
         </div>
         <!-- /.col -->

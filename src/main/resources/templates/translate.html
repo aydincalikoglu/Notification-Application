@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout.html}">
 <head layout:fragment="header">
+    <title>Çeviri</title>
 </head>
 <body layout:fragment="content">
 <section class="content-header">
@@ -45,7 +46,7 @@
                             <div class="col-sm-6">
                                 <!-- select -->
                                 <div class="form-group">
-                                    <label>Source Language</label>
+                                    <label>Kaynak Dil</label>
                                     <select name="sourceLanguage" class="custom-select">
                                         <th:block th:each="language : ${translationLanguages}">
                                             <option th:selected="${language.code == 'tr'} ? 'true' : 'false'"
@@ -56,7 +57,7 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label>Target Language</label>
+                                    <label>Hedef Dil</label>
                                     <select name="targetLanguage" class="custom-select">
                                         <th:block th:each="language : ${translationLanguages}">
                                             <option th:selected="${language.code == 'en'} ? 'true' : 'false'"
@@ -79,7 +80,7 @@
                     </div>
                 </form>
 
-                <form class="form-horizontal" name="mail" role="form" method="POST" action="/email"
+                <form class="form-horizontal" name="mail" role="form" method="GET" action="/email"
                       enctype="multipart/form-data">
                     <div class="card card-primary card-outline">
                         <div class="card-header">
@@ -87,7 +88,7 @@
                         <!-- /.card-header -->
                         <div class="card-body">
                             <div class="form-group">
-                                <input class="form-control" id="header" name="header" placeholder="Başlık">
+                                <input class="form-control" id="header" name="subject" placeholder="Başlık">
                             </div>
                             <div class="form-group">
                             <textarea class="form-control" id="body" name="body" placeholder="İçerik"
@@ -97,8 +98,6 @@
                         <!-- /.card-body -->
                         <div class="card-footer">
                             <div class="float-right">
-                                <button type="button" class="btn btn-default"><i class="fas fa-pencil-alt"></i> Draft olarak Kaydet
-                                </button>
                                 <button type="submit" class="btn btn-primary"><i class="far fa-envelope"></i> Mail olarak Aktar
                                 </button>
                             </div>
