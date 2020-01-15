@@ -33,7 +33,7 @@ Projede içerikleri
 	◦ Mevcut Mail taslak tasarımlarının listelenmesi ve mail gönderim sayfasına aktarılması
         ◦ Gönderilen maillerin listelenmesi
 
-Bu proje Java dilinde, MVC tasarım desenine uygun olarak "Spring framework" kullanılarak oluşturulmuştur.
+# Bu proje Java dilinde, MVC tasarım desenine uygun olarak "Spring framework" kullanılarak oluşturulmuştur.
 Proje veri depolama birimi olarak mysql veri tabanı kullanılmış olup, hybernate desteği olan veri tabanlarında kullanılabilmektedir.
 
 Proje çalıştırmadan önce application.properties içerisinde 
