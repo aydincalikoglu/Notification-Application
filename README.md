@@ -40,14 +40,19 @@ Proje çalıştırmadan önce application.properties içerisinde
 	aşağıda belirtilen alanlar güncellenmelidir.
 
 spring.mail.username=[COMPANY_MAIL_ADDRESS]
+
 spring.mail.password=[MAIL_PASSWORD]
 
  Enable application access: https://myaccount.google.com/u/0/lesssecureapps?pageId=none
+ 
  Bu URL ile gmail hesabınızın app tarafından kullanım iznini aktif etmelisiniz.
 
  Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+ 
 spring.datasource.url=jdbc:mysql://localhost:3306/tn?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+
 spring.datasource.username=[DB_USER_NAME]
+
 spring.datasource.password=[DB_PASSOWRD]
 
 
