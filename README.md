@@ -33,8 +33,10 @@ Projede içerikleri
 	◦ Mevcut Mail taslak tasarımlarının listelenmesi ve mail gönderim sayfasına aktarılması
         ◦ Gönderilen maillerin listelenmesi
 
-# Bu proje Java dilinde, MVC tasarım desenine uygun olarak "Spring framework" kullanılarak oluşturulmuştur.
+Bu proje Java dilinde, MVC tasarım desenine uygun olarak "Spring framework" kullanılarak oluşturulmuştur.
 Proje veri depolama birimi olarak mysql veri tabanı kullanılmış olup, hybernate desteği olan veri tabanlarında kullanılabilmektedir.
+
+# 
 
 Proje çalıştırmadan önce application.properties içerisinde 
 	aşağıda belirtilen alanlar güncellenmelidir.
@@ -42,10 +44,6 @@ Proje çalıştırmadan önce application.properties içerisinde
 spring.mail.username=[COMPANY_MAIL_ADDRESS]
 
 spring.mail.password=[MAIL_PASSWORD]
-
- Enable application access: https://myaccount.google.com/u/0/lesssecureapps?pageId=none
- 
- Bu URL ile gmail hesabınızın app tarafından kullanım iznini aktif etmelisiniz.
 
  Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
  
@@ -55,6 +53,11 @@ spring.datasource.username=[DB_USER_NAME]
 
 spring.datasource.password=[DB_PASSOWRD]
 
+#
 
+ Enable application access: https://myaccount.google.com/u/0/lesssecureapps?pageId=none
+ bu URL ile gmail hesabınızın app tarafından kullanım iznini aktif etmelisiniz.
 	
+#
+
 Bu rapor 141044078 numaralı G.T.Ü. Bilgisayar Mühendisliği Bölümü Lisans öğrencisi Aydın Çalıkoğlu’nun E-ticaret pazarlama yönetim sistemlerinde çok dilli çok uluslu yapılar projesi için bilgilendirme raporudur.
