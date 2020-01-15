@@ -44,8 +44,6 @@ Proje çalıştırmadan önce application.properties içerisinde
 spring.mail.username=[COMPANY_MAIL_ADDRESS]
 
 spring.mail.password=[MAIL_PASSWORD]
-
- Spring DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
  
 spring.datasource.url=jdbc:mysql://localhost:3306/tn?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
 
