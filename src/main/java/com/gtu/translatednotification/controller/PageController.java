@@ -2,6 +2,7 @@ package com.gtu.translatednotification.controller;
 
 import com.gtu.translatednotification.model.dao.Mail;
 import com.gtu.translatednotification.model.dao.Translation;
+import com.gtu.translatednotification.model.enums.MailType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -75,20 +76,24 @@ public class PageController extends BaseController {
                              @RequestParam(value = "to") String toType,
                              @RequestParam(value = "countryCode", required = false) String countryCode,
                              @RequestParam(value = "attachment", required = false) MultipartFile attachment) {
-        if (mail.getCategory() != null && mail.getCategory().isEmpty())
+        if (mail.getCategory() != null && mail.getCategory().trim().isEmpty()) {
             mail.setCategory(null);
-        if ("sent".equals(mail.getType()))
-            switch(toType){
-                case "one":
-                    return mailService.send(mail, Stream.of(attachment).collect(Collectors.toList()));
-                default:
-                    userService.getActive(Optional.ofNullable(countryCode)).forEach(user -> {
-                        mail.setMailAddress(user.getMail());
-                        mailService.send(mail, Stream.of(attachment).collect(Collectors.toList()));
-                    });
-                    return true;
+        }
+        if (MailType.SENT.getType().equals(mail.getType())) {
+            mail.setId(null); // To create new mail
+            if ("one".equals(toType)) {
+                return mailService.send(mail, Stream.of(attachment).collect(Collectors.toList()));
+            } else {
+                userService.getActive(Optional.ofNullable(countryCode)).forEach(user -> {
+                    mail.setMailAddress(user.getMail());
+                    mailService.send(mail, Stream.of(attachment).collect(Collectors.toList()));
+                });
+                return true;
             }
-        return mailService.save(mail).getId() != null;
+        } else {
+            // Upsert a mail draft
+            return mailService.save(mail).getId() != null;
+        }
     }
 
     @RequestMapping(value = "/mailbox", method = RequestMethod.GET)
