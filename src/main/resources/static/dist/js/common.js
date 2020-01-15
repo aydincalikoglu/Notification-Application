@@ -17,8 +17,7 @@ $(function () {
             toolbar:[],
             height: ($(area).height()),
             minHeight: null,             // set minimum height of editor
-            maxHeight: null,             // set maximum height of editor
-            focus: true
+            maxHeight: null
         });
     });
 

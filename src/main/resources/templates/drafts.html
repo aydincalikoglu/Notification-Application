@@ -83,21 +83,21 @@
                         <div class="card-body">
                             <div>
                                 <div class="btn-group w-100 mb-2">
-                                    <a class="btn btn-info active" href="javascript:void(0)" data-filter="all"> All items </a>
+                                    <a class="btn btn-info active" href="javascript:void(0)" data-filter="all">Tüm Tasarımlar</a>
                                     <th:block th:each="category : ${draftCategories}">
                                         <a class="btn btn-info" href="javascript:void(0)" th:data-filter="${category}" th:text="${category}">Category</a>
                                     </th:block>
                                 </div>
                                 <div class="mb-2">
-                                    <a class="btn btn-secondary" href="javascript:void(0)" data-shuffle> Shuffle items </a>
+                                    <a class="btn btn-secondary" href="javascript:void(0)" data-shuffle> Tasarımları Karıştır </a>
                                     <div class="float-right">
                                         <select class="custom-select" style="width: auto;" data-sortOrder>
-                                            <option value="index"> Sort by Position </option>
-                                            <option value="sortData"> Sort by Custom Data </option>
+                                            <option value="index"> İsme Göre Sırala </option>
+                                            <option value="sortData"> İçeriğe Göre Sırala</option>
                                         </select>
                                         <div class="btn-group">
-                                            <a class="btn btn-default" href="javascript:void(0)" data-sortAsc> Ascending </a>
-                                            <a class="btn btn-default" href="javascript:void(0)" data-sortDesc> Descending </a>
+                                            <a class="btn btn-default" href="javascript:void(0)" data-sortAsc> Sırala </a>
+                                            <a class="btn btn-default" href="javascript:void(0)" data-sortDesc> Ters Sırala </a>
                                         </div>
                                     </div>
                                 </div>

@@ -1,17 +1,20 @@
 package com.gtu.translatednotification.controller;
 
 import com.gtu.translatednotification.model.dao.Event;
-import com.gtu.translatednotification.model.dao.Translation;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api")
 public class EventController extends BaseController {
 
+
+    @RequestMapping(value = "/events", method = RequestMethod.GET)
+    @ResponseBody
+    public List<Event> get() {
+        return eventService.get("completed");
+    }
 
     @RequestMapping(value = "/events", method = RequestMethod.POST)
     @ResponseBody
